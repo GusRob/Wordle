@@ -23,7 +23,7 @@ for(var i = 0; i < guessRowRefs.length; i++){
 
 var wordList = [];
 
-$.get("https://raw.githack.com/GusRob/Wordle/main/assets/words.txt",function(returnedData) {
+$.get("/assets/words.txt",function(returnedData) {
   wordList = returnedData.split("\n");
   solution = wordList[Math.floor(Math.random() * wordList.length)].toUpperCase().split("");
 });
