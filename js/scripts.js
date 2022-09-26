@@ -50,13 +50,9 @@ function updateGuesses(){
 }
 
 function addLetter(letter){
-  console.debug(letter);
   var keyClass = document.getElementById("" + letter).classList;
-  console.debug(keyClass);
-  if(!keyClass.contains("gaf")){
-    if(isGameActive && currentLetter < wordLength){
-      guesses[currentGuess][currentLetter++] = letter;
-    }
+  if(isGameActive && currentLetter < wordLength){
+    guesses[currentGuess][currentLetter++] = letter;
   }
   updateGuesses();
 }
@@ -129,16 +125,32 @@ function verify(guess, answer){
 
 function updateKey(keyId, value){
   var keyRef = document.getElementById(keyId);
+  if(value == "#0F0"){
+    keyRef.classList.add("gag");
+    keyRef.classList.remove("gay");
+    keyRef.classList.remove("gaf");
+  } else {
+    if(value == "#FF0"){
+      if(!keyRef.classList.contains("gag")){
+        keyRef.classList.add("gay");
+        keyRef.classList.remove("gaf");
+        keyRef.classList.remove("gag");
+      }
+    } else {
+      if(!keyRef.classList.contains("gay")){
+        keyRef.classList.add("gaf");
+        keyRef.classList.remove("gay");
+        keyRef.classList.remove("gag");
+      }
+    }
+  }
+}
+
+function clearKey(keyId){
+  var keyRef = document.getElementById(keyId);
   keyRef.classList.remove("gaf");
   keyRef.classList.remove("gay");
   keyRef.classList.remove("gag");
-  if(value == "#999"){
-    keyRef.classList.add("gaf");
-  } else if(value == "#FF0"){
-    keyRef.classList.add("gay");
-  } else if(value == "#0F0"){
-    keyRef.classList.add("gag");
-  }
 }
 
 
@@ -149,7 +161,7 @@ var keys = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F"
 function clearAll(){
   guesses = [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""]];
   for(var i = 0; i < keys.length; i++){
-    updateKey(keys[i], "none");
+    clearKey(keys[i]);
   }
   isGameActive = true;
   isGameWon = false;

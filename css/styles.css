@@ -102,6 +102,13 @@ html, body {
   background-color: #0D0;
 }
 
+.key.gaf:hover {
+  background-color: #666;
+}
+.key.gaf:active {
+  background-color: #222;
+}
+
 .key.gag:hover {
   background-color: #0F0;
 }
