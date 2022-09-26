@@ -92,6 +92,30 @@ html, body {
   line-height: 150%;
 }
 
+.gaf {
+  background-color: #444;
+}
+.gay {
+  background-color: #DD0;
+}
+.gag {
+  background-color: #0D0;
+}
+
+.key.gag:hover {
+  background-color: #0F0;
+}
+.key.gag:active {
+  background-color: #0B0;
+}
+
+.key.gay:hover {
+  background-color: #FF0;
+}
+.key.gay:active {
+  background-color: #BB0;
+}
+
 .key:hover:not(.gaf, .gay, .gag) {
   background-color: #999;
 }
@@ -125,4 +149,5 @@ html, body {
   animation-name: flashGreen;
   animation-duration: 2s;
   animation-iteration-count: infinite;
+  visibility: hidden;
 }

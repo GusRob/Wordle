@@ -10,7 +10,10 @@ var currentGuess = 0;
 var currentLetter = 0;
 var wordLength = 5;
 
-var solution = ["A", "B", "B", "D", "E"];
+var isInvalid = false;
+
+var solution = ["A", "B", "C", "D", "E"];
+var solutionRef = document.getElementById("solution");
 
 var guessRowRefs = document.getElementsByClassName("guessRow");
 var letterRefs = [];
@@ -18,6 +21,12 @@ for(var i = 0; i < guessRowRefs.length; i++){
   letterRefs.push(guessRowRefs[i].getElementsByClassName("letter"));
 }
 
+var wordList = [];
+
+$.get("/assets/words.txt",function(returnedData) {
+  wordList = returnedData.split("\n");
+  solution = wordList[Math.floor(Math.random() * wordList.length)].toUpperCase().split("");
+});
 
 function updateGuesses(){
   for(var i = 0; i < guessRowRefs.length; i++){
@@ -30,14 +39,24 @@ function updateGuesses(){
         } else if( j <= currentLetter){
           letterRefs[i][j].style.backgroundColor = "#444";
         }
+        if(isInvalid){
+          letterRefs[i][j].style.color = "#F00";
+        } else {
+          letterRefs[i][j].style.color = "#000";
+        }
       }
     }
   }
 }
 
 function addLetter(letter){
-  if(isGameActive && currentLetter < wordLength){
-    guesses[currentGuess][currentLetter++] = letter;
+  console.debug(letter);
+  var keyClass = document.getElementById("" + letter).classList;
+  console.debug(keyClass);
+  if(!keyClass.contains("gaf")){
+    if(isGameActive && currentLetter < wordLength){
+      guesses[currentGuess][currentLetter++] = letter;
+    }
   }
   updateGuesses();
 }
@@ -46,25 +65,36 @@ function removeLetter(){
   if(isGameActive && currentLetter > 0){
     guesses[currentGuess][--currentLetter] = "";
   }
+  isInvalid = false;
   updateGuesses();
 }
 
 function guessWord(){
   if(isGameActive && currentLetter >= wordLength){
     var guess = getWordInRow(currentGuess);
-    var result = verify(guess, [...solution]);
-    var isAllCorrect = true;
-    for(var j = 0; j < wordLength; j++){
-      isAllCorrect = isAllCorrect && (result[j]=="#0F0");
-      letterRefs[currentGuess][j].style.backgroundColor = result[j];
-      letterRefs[currentGuess][j].style.borderColor = result[j];
-    }
-    if(isAllCorrect){
-      isGameActive = false;
-      currentGuess = 6;
+    if(wordList.includes(guess.join("").toLowerCase())){
+      var result = verify(guess, [...solution]);
+      var isAllCorrect = true;
+      for(var j = 0; j < wordLength; j++){
+        isAllCorrect = isAllCorrect && (result[j]=="#0F0");
+        letterRefs[currentGuess][j].style.backgroundColor = result[j];
+        letterRefs[currentGuess][j].style.borderColor = result[j];
+      }
+      if(isAllCorrect){
+        isGameActive = false;
+        currentGuess = 6;
+        isGameWon = true;
+        solutionRef.style.visibility = "visible";
+        solutionRef.textContent = "YOU WON!";
+      } else {
+        currentGuess++;
+        currentLetter = 0;
+      }
+      for(var i = 0; i < guess.length; i++){
+        updateKey(guess[i], result[i]);
+      }
     } else {
-      currentGuess++;
-      currentLetter = 0;
+      isInvalid = true;
     }
   }
   updateGuesses();
@@ -97,6 +127,51 @@ function verify(guess, answer){
   return result;
 }
 
+function updateKey(keyId, value){
+  var keyRef = document.getElementById(keyId);
+  keyRef.classList.remove("gaf");
+  keyRef.classList.remove("gay");
+  keyRef.classList.remove("gag");
+  if(value == "#999"){
+    keyRef.classList.add("gaf");
+  } else if(value == "#FF0"){
+    keyRef.classList.add("gay");
+  } else if(value == "#0F0"){
+    keyRef.classList.add("gag");
+  }
+}
+
 
 updateGuesses();
-console.debug(guesses);
+
+var keys = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"];
+
+function clearAll(){
+  guesses = [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""]];
+  for(var i = 0; i < keys.length; i++){
+    updateKey(keys[i], "none");
+  }
+  isGameActive = true;
+  isGameWon = false;
+  solutionRef.style.visibility = "hidden";
+  currentGuess = 0;
+  currentLetter = 0;
+  for(var i = 0; i < guessRowRefs.length; i++){
+    for(var j = 0; j < wordLength; j++){
+      letterRefs[i][j].style.backgroundColor = "#333";
+      letterRefs[i][j].style.borderColor = "#777";
+    }
+  }
+  updateGuesses();
+}
+
+function resetWord(){
+  solution = wordList[Math.floor(Math.random() * wordList.length)].toUpperCase().split("");
+  clearAll();
+}
+
+function showSolution(){
+  solutionRef.textContent = solution.join(" ");
+  solutionRef.style.visibility = "visible";
+  updateGuesses();
+}
