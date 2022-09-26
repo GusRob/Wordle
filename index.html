@@ -1,0 +1,116 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Wordle</title>
+  <meta name="description" content="A simple wordle clone">
+  <meta name="author" content="SitePoint">
+
+  <meta property="og:title" content="Wordle by Gus">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="">
+  <meta property="og:description" content="A simple wordle clone">
+  <meta property="og:image" content="">
+
+  <link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body>
+  <div id="mainContainer">
+    <div class="guessRow">
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+    </div>
+    <div class="guessRow">
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+    </div>
+    <div class="guessRow">
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+    </div>
+    <div class="guessRow">
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+    </div>
+    <div class="guessRow">
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+    </div>
+    <div class="guessRow">
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+      <div class="letter"></div>
+    </div>
+    <div id="gameControl">
+      <div class="controlButton">Clear All</div>
+      <div class="controlButton">Reset Word</div>
+      <div class="controlButton">Solution</div>
+    </div>
+    <div id="keyboard">
+      <div class="keyboardRow">
+        <div class="key" onclick="addLetter('Q');">Q</div>
+        <div class="key" onclick="addLetter('W');">W</div>
+        <div class="key" onclick="addLetter('E');">E</div>
+        <div class="key" onclick="addLetter('R');">R</div>
+        <div class="key" onclick="addLetter('T');">T</div>
+        <div class="key" onclick="addLetter('Y');">Y</div>
+        <div class="key" onclick="addLetter('U');">U</div>
+        <div class="key" onclick="addLetter('I');">I</div>
+        <div class="key" onclick="addLetter('O');">O</div>
+        <div class="key" onclick="addLetter('P');">P</div>
+      </div>
+      <div class="keyboardRow">
+        <div class="halfKey"> </div>
+        <div class="key" onclick="addLetter('A');">A</div>
+        <div class="key" onclick="addLetter('S');">S</div>
+        <div class="key" onclick="addLetter('D');">D</div>
+        <div class="key" onclick="addLetter('F');">F</div>
+        <div class="key" onclick="addLetter('G');">G</div>
+        <div class="key" onclick="addLetter('H');">H</div>
+        <div class="key" onclick="addLetter('J');">J</div>
+        <div class="key" onclick="addLetter('K');">K</div>
+        <div class="key" onclick="addLetter('L');">L</div>
+      </div>
+      <div class="keyboardRow">
+        <div class="key" onclick="removeLetter();">↤</div>
+        <div class="halfKey"> </div>
+        <div class="key" onclick="addLetter('Z');">Z</div>
+        <div class="key" onclick="addLetter('X');">X</div>
+        <div class="key" onclick="addLetter('C');">C</div>
+        <div class="key" onclick="addLetter('V');">V</div>
+        <div class="key" onclick="addLetter('B');">B</div>
+        <div class="key" onclick="addLetter('N');">N</div>
+        <div class="key" onclick="addLetter('M');">M</div>
+        <div class="halfKey"> </div>
+        <div class="key" onclick="guessWord();">&#9166;</div>
+      </div>
+    </div>
+    <div id="solution">
+      W O R D L
+    </div>
+  </div>
+  <script src="js/scripts.js"></script>
+</body>
+</html>
