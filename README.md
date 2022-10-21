@@ -2,6 +2,8 @@
 
 This is a very simple clone of the popular game "wordle"
 
+Is hosted on my portfolio website: [angusprobertson.com](https://www.angusprobertson.com)
+
 <hr>
 
 <img src="/example_pics/pic1.png" alt="drawing" width="30%"/> <img src="/example_pics/pic2.png" alt="drawing" width="30%"/>
